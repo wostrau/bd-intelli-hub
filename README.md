@@ -6,17 +6,19 @@ The project combines automated data ingestion, data transformation pipelines, an
 
 ## Architecture
 
-text External Data Sources         
-↓ 
-Data Loaders         
-↓ 
-PostgreSQL 
-↓ 
+```text
+External Data Sources
+        ↓
+Data Loaders
+        ↓
+PostgreSQL
+        ↓
 Data Transformation Layer
-↓ 
+        ↓
 Next.js Application
-↓ 
-Interactive Dashboards 
+        ↓
+Interactive Dashboards
+```
 
 ## Core Components
 
