@@ -99,7 +99,6 @@ The application provides:
 ## Project Structure
 
 ```text
-.
 ├── src
 │   ├── app
 │   ├── components
