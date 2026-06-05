@@ -98,23 +98,28 @@ The application provides:
 
 ## Project Structure
 
-src/
-├── app/
-├── components/
-├── services/
-├── lib/
-├── hooks/
-└── types/
-
-database/
-├── migrations/
-├── seeds/
-└── views/
-
-scripts/
-├── loaders/
-├── sync/
-└── maintenance/
+```text
+.
+├── src
+│   ├── app
+│   ├── components
+│   ├── services
+│   ├── lib
+│   ├── hooks
+│   └── types
+│
+├── database
+│   ├── migrations
+│   ├── seeds
+│   └── views
+│
+├── scripts
+│   ├── loaders
+│   ├── sync
+│   └── maintenance
+│
+└── docs
+```
 
 ## Key Principles
 
