@@ -1,143 +1,90 @@
-# BD IntelliHub
+# Google Sheets Reader PoC
 
-BD IntelliHub is a centralized data platform designed to collect, transform, and visualize information from multiple sources in a single workspace.
+Minimal Node.js and TypeScript proof of concept for reading a public Google Sheet range and printing normalized JSON to the console.
 
-The project combines automated data ingestion, data transformation pipelines, and interactive dashboards to support operational monitoring, analytical exploration, and informed decision-making.
+The script reads the configured worksheet range from a Google Sheet that is available to anyone with the link, treats the first row as headers, normalizes those headers into object keys, and prints the remaining rows as formatted JSON.
 
-## Architecture
+No database, frontend, or service account is included.
 
-```text
-External Data Sources
-        ↓
-Data Loaders
-        ↓
-PostgreSQL
-        ↓
-Data Transformation Layer
-        ↓
-Next.js Application
-        ↓
-Interactive Dashboards
+## Requirements
+
+- Node.js 18 or newer
+- A Google Sheet with link access enabled
+
+## Install
+
+```bash
+npm install
 ```
 
-## Core Components
+## Configure Environment
 
-### Data Ingestion
+Create a local `.env` file from the example:
 
-Automated loaders collect and synchronize information from external and internal data sources.
-
-Examples include:
-
-- Spreadsheets
-- APIs
-- CSV exports
-- Third-party data providers
-
-### Data Storage
-
-PostgreSQL serves as the central data repository.
-
-Data is organized into:
-
-- Raw datasets
-- Processed datasets
-- Analytics-ready views
-
-### Data Transformation
-
-The transformation layer is responsible for:
-
-- Data normalization
-- Data enrichment
-- Business logic implementation
-- Analytics table generation
-
-### Application Layer
-
-The web application is built with:
-
-- Next.js
-- TypeScript
-- Ant Design
-
-The application provides:
-
-- Interactive dashboards
-- Data exploration tools
-- Search and filtering capabilities
-- Reporting interfaces
-
-## Technology Stack
-
-### Frontend
-
-- Next.js
-- React
-- TypeScript
-- Ant Design
-- Ant Design Charts
-
-### Backend
-
-- Next.js Server Components
-- API Routes
-- Scheduled Jobs
-
-### Database
-
-- PostgreSQL
-
-### Infrastructure
-
-- Vercel
-- GitHub Actions
-
-### Authentication
-
-- Google OAuth
-
-## Project Structure
-
-```text
-├── src
-│   ├── app
-│   ├── components
-│   ├── services
-│   ├── lib
-│   ├── hooks
-│   └── types
-│
-├── database
-│   ├── migrations
-│   ├── seeds
-│   └── views
-│
-├── scripts
-│   ├── loaders
-│   ├── sync
-│   └── maintenance
-│
-└── docs
+```bash
+cp .env.example .env
 ```
 
-## Key Principles
+Update `.env` with your values:
 
-- Single source of truth
-- Automated data collection
-- Reproducible transformations
-- Modular architecture
-- Data-driven workflows
-- Scalable deployment model
+```env
+SHEET_ID=your_google_sheet_id
+SHEET_RANGE=Sheet1!A:Z
+```
 
-## Roadmap
+`SHEET_ID` is the ID from the Google Sheet URL:
 
-- Additional data connectors
-- Enhanced analytics capabilities
-- Advanced search and filtering
-- Automated reporting
-- Intelligence and recommendation features
-- Expanded dashboard ecosystem
+```text
+https://docs.google.com/spreadsheets/d/<SHEET_ID>/edit
+```
 
-## License
+`SHEET_RANGE` can include the sheet name and range:
 
-Private internal project.
+```text
+Sheet1!A:Z
+'My Sheet'!A:Z
+```
+
+## Share the Sheet
+
+In Google Sheets, click **Share** and set general access to **Anyone with the link**.
+
+Viewer access is enough.
+
+## Run
+
+```bash
+npm start
+```
+
+or:
+
+```bash
+npm run read:sheet
+```
+
+The script prints the loaded rows as formatted JSON:
+
+```json
+[
+  {
+    "client_name": "Example Client",
+    "market": "Brazil",
+    "status": "Active",
+    "loaded_at": "2026-06-05T20:00:00.000Z"
+  }
+]
+```
+
+## Check TypeScript
+
+```bash
+npm run check
+```
+
+## Notes
+
+- Missing environment variables produce a clear error.
+- Empty sheets or sheets with only headers are handled gracefully.
+- Missing cells are represented as `null`.
+- `.env`, dependencies, and local credential files are excluded from Git.
